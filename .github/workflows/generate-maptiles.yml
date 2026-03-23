@@ -1,4 +1,4 @@
-name: generate maptiles
+name: Generate Hong Kong PMTiles
 
 on:
   workflow_dispatch:
