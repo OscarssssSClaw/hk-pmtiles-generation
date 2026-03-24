@@ -111,7 +111,7 @@
           11,
           1
         ],
-        "fill-color": "#7bc47f"
+        "fill-color": "#DE9D32"
       }
     },
     {
@@ -307,7 +307,7 @@
       "source": "protomaps",
       "source-layer": "water",
       "paint": {
-        "fill-color": "#4fc3f7",
+        "fill-color": "#03D4A1",
         "fill-outline-color": "rgba(118, 200, 255, 1)"
       }
     },
