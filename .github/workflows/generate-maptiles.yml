@@ -209,10 +209,10 @@ jobs:
       - name: prepare artifact directory
         run: |
           mkdir -p _site
-          [ -f vector-tiles/hong-kong.pmtiles ] && mv vector-tiles/hong-kong.pmtiles _site/hong-kong.pmtiles.gz || true
-          [ -f vector-tiles/hong-kong-labels.pmtiles ] && mv vector-tiles/hong-kong-labels.pmtiles _site/hong-kong-labels.pmtiles.gz || true
-          [ -f raster-tiles-light/hong-kong-raster.pmtiles ] && mv raster-tiles-light/hong-kong-raster.pmtiles _site/hong-kong-raster.pmtiles.gz || true
-          [ -f raster-tiles-dark/hong-kong-raster-dark.pmtiles ] && mv raster-tiles-dark/hong-kong-raster-dark.pmtiles _site/hong-kong-raster-dark.pmtiles.gz || true
+          [ -f vector-tiles/hong-kong.pmtiles ] && mv vector-tiles/hong-kong.pmtiles _site/hong-kong.pmtiles || true
+          [ -f vector-tiles/hong-kong-labels.pmtiles ] && mv vector-tiles/hong-kong-labels.pmtiles _site/hong-kong-labels.pmtiles || true
+          [ -f raster-tiles-light/hong-kong-raster.pmtiles ] && mv raster-tiles-light/hong-kong-raster.pmtiles _site/hong-kong-raster.pmtiles || true
+          [ -f raster-tiles-dark/hong-kong-raster-dark.pmtiles ] && mv raster-tiles-dark/hong-kong-raster-dark.pmtiles _site/hong-kong-raster-dark.pmtiles || true
 
       - name: setup pages
         uses: actions/configure-pages@v5
@@ -225,14 +225,6 @@ jobs:
       - name: deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: remove .gz
-        run: |
-          mkdir -p _site
-          [ -f _site/hong-kong.pmtiles.gz ] && mv _site/hong-kong.pmtiles.gz _site/hong-kong.pmtiles || true
-          [ -f _site/hong-kong-labels.pmtiles.gz ] && mv _site/hong-kong-labels.pmtiles.gz _site/hong-kong-labels.pmtiles || true
-          [ -f _site/hong-kong-raster.pmtiles.gz ] && mv _site/hong-kong-raster.pmtiles.gz _site/hong-kong-raster.pmtiles || true
-          [ -f _site/hong-kong-raster-dark.pmtiles.gz ] && mv _site/hong-kong-raster-dark.pmtiles.gz _site/hong-kong-raster-dark.pmtiles || true
 
       - name: deploy to R2
         uses: ryand56/r2-upload-action@latest
