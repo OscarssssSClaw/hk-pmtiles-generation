@@ -111,7 +111,7 @@
           11,
           1
         ],
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -127,7 +127,7 @@
         "playground"
       ],
       "paint": {
-        "fill-color": "#fcd612",
+        "fill-color": "#767676",
         "fill-opacity": 0.7
       }
     },
@@ -142,7 +142,7 @@
         "hospital"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -156,7 +156,7 @@
         "industrial"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -172,7 +172,7 @@
         "college"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -186,7 +186,7 @@
         "beach"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -200,7 +200,7 @@
         "zoo"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -214,7 +214,7 @@
         "aerodrome"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -293,7 +293,7 @@
         ]
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -307,8 +307,8 @@
       "source": "protomaps",
       "source-layer": "water",
       "paint": {
-        "fill-color": "#FFEF95",
-        "fill-outline-color": "#FFEF95"
+        "fill-color": "#8f8c8b",
+        "fill-outline-color": "#8f8c8b"
       }
     },
     {
@@ -323,7 +323,7 @@
         "stream"
       ],
       "paint": {
-        "line-color": "#FFEF95",
+        "line-color": "#8f8c8b",
         "line-width": 0.5
       }
     },
@@ -339,7 +339,7 @@
         "river"
       ],
       "paint": {
-        "line-color": "#FFEF95",
+        "line-color": "#8f8c8b",
         "line-width": [
           "interpolate",
           [
@@ -369,7 +369,7 @@
         "pedestrian"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -383,7 +383,7 @@
         "pier"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#767676"
       }
     },
     {
@@ -868,7 +868,7 @@
       "source": "protomaps",
       "source-layer": "buildings",
       "paint": {
-        "fill-color": "#cccccc",
+        "fill-color": "#fcd612",
         "fill-opacity": 0.5
       }
     },
