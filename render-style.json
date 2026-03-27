@@ -111,7 +111,7 @@
           11,
           1
         ],
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -127,7 +127,7 @@
         "playground"
       ],
       "paint": {
-        "fill-color": "#fcd612",
+        "fill-color": "#4CAF50",
         "fill-opacity": 0.7
       }
     },
@@ -142,7 +142,7 @@
         "hospital"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -156,7 +156,7 @@
         "industrial"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -172,7 +172,7 @@
         "college"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -186,7 +186,7 @@
         "beach"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -200,7 +200,7 @@
         "zoo"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -214,7 +214,7 @@
         "aerodrome"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -293,7 +293,7 @@
         ]
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -369,7 +369,7 @@
         "pedestrian"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
@@ -383,7 +383,7 @@
         "pier"
       ],
       "paint": {
-        "fill-color": "#fcd612"
+        "fill-color": "#4CAF50"
       }
     },
     {
