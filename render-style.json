@@ -1029,7 +1029,7 @@
         ]
       ],
       "paint": {
-        "line-color": "#fcd612",
+        "line-color": "#e0e0e0",
         "line-gap-width": [
           "interpolate",
           [
@@ -1391,7 +1391,7 @@
         ]
       ],
       "paint": {
-        "line-color": "#fcd612",
+        "line-color": "#e0e0e0",
         "line-width": [
           "interpolate",
           [
