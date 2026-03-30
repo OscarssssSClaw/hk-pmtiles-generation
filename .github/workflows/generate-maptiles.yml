@@ -122,7 +122,7 @@ jobs:
             --tiletype "webp" \
             --ratio 2 \
             --minzoom 12 \
-            --maxzoom 18 \
+            --maxzoom 17 \
             --filename hong-kong-raster \
             --outputdir /outputs
 
@@ -175,7 +175,7 @@ jobs:
             --tiletype "webp" \
             --ratio 2 \
             --minzoom 12 \
-            --maxzoom 18 \
+            --maxzoom 17 \
             --filename hong-kong-raster-dark \
             --outputdir /outputs
 
