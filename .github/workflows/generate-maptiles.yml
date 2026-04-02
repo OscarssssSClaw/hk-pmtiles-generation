@@ -20,7 +20,7 @@ on:
         type: boolean
 
   schedule:
-    - cron: '0 16 */4 * *'
+    - cron: '0 2 */30 * *'
 
 permissions:
   pages: write
