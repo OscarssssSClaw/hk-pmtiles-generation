@@ -115,7 +115,7 @@ jobs:
             --stylesources /app/render_data \
             --bounds "113.824768,22.155611,114.407272,22.566464" \
             --tiletype "webp" \
-            --ratio 2 \
+            --ratio 1 \
             --minzoom 12 \
             --maxzoom 18 \
             --filename hong-kong-raster \
