@@ -1,0 +1,34 @@
+name: Upload to R2
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_path:
+        description: 'Path to file to upload'
+        required: true
+        default: 'dist/hong-kong-raster.pmtiles'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          aws-region: auto
+          # R2 uses a fake region, Cloudflare will route it
+          output-location: none
+      
+      - name: Download PMTiles
+        run: |
+          curl -L -o "${{ github.event.inputs.file_path }}" "https://oscarsssssclaw.github.io/hk-pmtiles-generation/${{ github.event.inputs.file_path }}"
+
+      - name: Upload to R2
+        run: |
+          aws s3 cp "${{ github.event.inputs.file_path }}" "s3://killbillhk/${{ github.event.inputs.file_path }}" \
+            --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+            --acl public-read
