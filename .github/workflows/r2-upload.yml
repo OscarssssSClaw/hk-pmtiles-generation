@@ -12,23 +12,22 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          aws-region: auto
-          # R2 uses a fake region, Cloudflare will route it
-          output-location: none
-      
       - name: Download PMTiles
         run: |
           curl -L -o "${{ github.event.inputs.file_path }}" "https://oscarsssssclaw.github.io/hk-pmtiles-generation/${{ github.event.inputs.file_path }}"
+      
+      - name: Install s5cmd
+        run: |
+          curl -L -o s5cmd https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_Linux_amd64.tar.gz
+          tar -xzf s5cmd -C /usr/local/bin
 
       - name: Upload to R2
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
         run: |
-          aws s3 cp "${{ github.event.inputs.file_path }}" "s3://killbillhk/${{ github.event.inputs.file_path }}" \
-            --endpoint-url "https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
-            --acl public-read
+          s5cmd cp "${{ github.event.inputs.file_path }}" "s3://killbillhk/${{ github.event.inputs.file_path }}" \
+            --endpoint "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --access-key "${R2_ACCESS_KEY_ID}" \
+            --secret-key "${R2_SECRET_ACCESS_KEY}"
