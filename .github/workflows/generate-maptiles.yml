@@ -18,11 +18,6 @@ on:
         required: false
         default: true
         type: boolean
-      build_raster_dark:
-        description: 'Build raster dark tiles'
-        required: false
-        default: true
-        type: boolean
 
   schedule:
     - cron: '0 16 */4 * *'
@@ -141,62 +136,9 @@ jobs:
           name: raster-tiles-light
           path: hong-kong-raster.pmtiles
 
-  build-raster-dark:
-    if: (github.event_name == 'schedule' && vars.CRON_BUILD_RASTER_DARK != 'false' || inputs.build_raster_dark == true) && (github.event_name == 'schedule' && vars.CRON_BUILD_VECTOR != 'false' || inputs.build_vector == true)
-    needs: build-vector
-    runs-on: ubuntu-latest
-    timeout-minutes: 500
-
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
-
-      - name: download vector artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: vector-tiles
-
-      - name: prepare directory
-        run: |
-          mkdir render_data
-          cp render-style-dark.json render_data/
-          mv hong-kong.pmtiles render_data/
-
-      - name: generate dark raster mbtiles
-        run: |
-          docker run --rm \
-            -v "$(pwd)/render_data":/app/render_data \
-            -v "$(pwd)":/outputs \
-            communityfirst/mapgl-tile-renderer \
-            --style self \
-            --stylelocation /app/render_data/render-style-dark.json \
-            --stylesources /app/render_data \
-            --bounds "113.824768,22.155611,114.407272,22.566464" \
-            --tiletype "webp" \
-            --ratio 2 \
-            --minzoom 12 \
-            --maxzoom 18 \
-            --filename hong-kong-raster-dark \
-            --outputdir /outputs
-
-      - name: download pmtiles cli
-        run: |
-          wget https://github.com/protomaps/go-pmtiles/releases/download/v1.28.2/go-pmtiles_1.28.2_Linux_x86_64.tar.gz
-          tar -xzf go-pmtiles_1.28.2_Linux_x86_64.tar.gz
-          chmod +x pmtiles
-
-      - name: convert mbtiles to pmtiles
-        run: ./pmtiles convert hong-kong-raster-dark.mbtiles hong-kong-raster-dark.pmtiles
-
-      - name: upload raster artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: raster-tiles-dark
-          path: hong-kong-raster-dark.pmtiles
-
   deploy:
-    if: always() && (needs.build-vector.result == 'success' || needs.build-raster-light.result == 'success' || needs.build-raster-dark.result == 'success')
-    needs: [build-vector, build-raster-light, build-raster-dark]
+    if: always() && (needs.build-vector.result == 'success' || needs.build-raster-light.result == 'success')
+    needs: [build-vector, build-raster-light]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -212,7 +154,6 @@ jobs:
           [ -f vector-tiles/hong-kong.pmtiles ] && mv vector-tiles/hong-kong.pmtiles _site/hong-kong.pmtiles || true
           [ -f vector-tiles/hong-kong-labels.pmtiles ] && mv vector-tiles/hong-kong-labels.pmtiles _site/hong-kong-labels.pmtiles || true
           [ -f raster-tiles-light/hong-kong-raster.pmtiles ] && mv raster-tiles-light/hong-kong-raster.pmtiles _site/hong-kong-raster.pmtiles || true
-          [ -f raster-tiles-dark/hong-kong-raster-dark.pmtiles ] && mv raster-tiles-dark/hong-kong-raster-dark.pmtiles _site/hong-kong-raster-dark.pmtiles || true
 
       - name: setup pages
         uses: actions/configure-pages@v5
