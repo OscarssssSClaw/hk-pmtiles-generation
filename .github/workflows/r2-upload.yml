@@ -19,10 +19,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
-          aws configure set aws_access_key_id $R2_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $R2_SECRET_ACCESS_KEY
-          aws configure set region auto
-          
           aws s3 cp hong-kong-raster.pmtiles s3://killbillhk/hong-kong-raster.pmtiles \
             --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
 
