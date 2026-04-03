@@ -167,13 +167,22 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: deploy to R2
-        uses: ryand56/r2-upload-action@latest
-        continue-on-error: true
-        with:
-          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-          r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          r2-bucket: ${{ secrets.R2_BUCKET }}
-          source-dir: _site
-          destination-dir: ./
+      - name: Setup s5cmd
+        run: |
+          curl -L -o s5cmd https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_Linux_amd64.tar.gz
+          tar -xzf s5cmd -C /usr/local/bin s5cmd
+
+      - name: Deploy to R2
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+        run: |
+          for file in _site/*.pmtiles; do
+            filename=$(basename "$file")
+            echo "Uploading $filename to R2..."
+            s5cmd cp "$file" "s3://killbillhk/$filename" --endpoint "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+          done
+          
+          echo "Verifying R2 contents..."
+          s5cmd ls s3://killbillhk/ --endpoint "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
