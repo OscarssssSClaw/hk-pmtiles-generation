@@ -167,21 +167,19 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Configure AWS CLI
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          aws-region: auto
-          service-endpoint: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
 
       - name: Deploy to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_ENDPOINT_URL: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
         run: |
           for file in _site/*.pmtiles; do
             filename=$(basename "$file")
             echo "Uploading $filename to R2..."
-            aws s3 cp "$file" "s3://killbillhk/$filename"
+            aws s3 cp --endpoint-url "$AWS_ENDPOINT_URL" "$file" "s3://killbillhk/$filename"
           done
           
           echo "Verifying R2 contents..."
-          aws s3 ls s3://killbillhk/
+          aws s3 ls --endpoint-url "$AWS_ENDPOINT_URL" s3://killbillhk/
